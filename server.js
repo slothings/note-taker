@@ -7,6 +7,7 @@ const fs = require("fs");
 const app = express();
 const PORT = process.env.PORT || 3000; 
 const mainDir = path.join(__dirname, "/public");
+const dbDir = path.join(__dirname, "/db/db.json");
 
 app.use(express.static("public"));
 app.use(express.urlencoded({extended: true}));
@@ -18,11 +19,11 @@ app.get("/notes", function(req, res) {
 });
 
 app.get("/api/notes", function(req, res) {
-    res.sendFile(path.join(__dirname, "/db/db.json"));
+    res.sendFile(dbDir);
 });
 
 app.get("/api/notes/:id", function(req, res) {
-    let savedNotes = JSON.parse(fs.readFileSync("/db/db.json", "utf8"));
+    let savedNotes = JSON.parse(fs.readFileSync(dbDir, "utf8"));
     res.json(savedNotes[Number(req.params.id)]);
 });
 
@@ -33,20 +34,20 @@ app.get("*", function(req, res) {
 
 // saving notes correctly
 app.post("/api/notes", function(req, res) {
-    let savedNotes = JSON.parse(fs.readFileSync("/db/db.json", "utf8"));
+    let savedNotes = JSON.parse(fs.readFileSync(dbDir, "utf8"));
     let newNote = req.body;
     let uniqueID = (savedNotes.length).toString();
     newNote.id = uniqueID;
     savedNotes.push(newNote);
 
-    fs.writeFileSync("/db/db.json", JSON.stringify(savedNotes));
+    fs.writeFileSync(dbDir, JSON.stringify(savedNotes));
     console.log("Note saved to db.json. Content: ", newNote);
     res.json(savedNotes);
 })
 
 // deleting notes
 app.delete("/api/notes/:id", function(req, res) {
-    let savedNotes = JSON.parse(fs.readFileSync("/db/db.json", "utf8"));
+    let savedNotes = JSON.parse(fs.readFileSync(dbDir, "utf8"));
     let noteID = req.params.id;
     let newID = 0;
     console.log(`Deleting note with ID ${noteID}`);
@@ -59,7 +60,7 @@ app.delete("/api/notes/:id", function(req, res) {
         newID++;
     }
 
-    fs.writeFileSync("/db/db.json", JSON.stringify(savedNotes));
+    fs.writeFileSync(dbDir, JSON.stringify(savedNotes));
     res.json(savedNotes);
 })
 

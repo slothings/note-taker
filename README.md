@@ -2,7 +2,7 @@
 
 ![GitHub top language](https://img.shields.io/github/languages/top/slothings/note-taker)
 
-This application uses express backend to write, save, and delete notes from a JSON file. 
+This application uses express backend to write, save, and delete notes to/from a JSON file. 
 
 ![Application landing page](/notetakerSS.JPG)
 

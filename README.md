@@ -4,9 +4,9 @@
 
 This application uses express backend to write, save, and delete notes from a JSON file. 
 
-![Application landing page](Develop/notetakerSS.JPG)
+![Application landing page](/notetakerSS.JPG)
 
-![Application landing page](Develop/notetakerSS2.JPG)
+![Application landing page](/notetakerSS2.JPG)
 
 [Note Taker](https://vast-island-67845.herokuapp.com/) is hosted on Heroku
 
